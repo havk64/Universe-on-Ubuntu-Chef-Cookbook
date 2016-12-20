@@ -6,6 +6,12 @@
 
 include_recipe 'apt::default'
 
+if node['platform_version'] == '14.04'
+  apt_repository 'newer golang apt repo' do
+    uri 'ppa:ubuntu-lxc/lxd-stable'
+  end
+end
+
 package 'install basic apt packages' do
   package_name %w(golang
                   libjpeg-turbo8-dev

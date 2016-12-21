@@ -21,7 +21,7 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[universe-ubuntu::default]
+      - recipe[universe_ubuntu::default]
     verifier:
       inspec_tests:
         - test/recipes

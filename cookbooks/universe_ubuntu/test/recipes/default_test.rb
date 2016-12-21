@@ -5,14 +5,26 @@
 # The Inspec reference, with examples and extensive documentation, can be
 # found at https://docs.chef.io/inspec_reference.html
 
-unless os.windows?
-  describe user('root') do
-    it { should exist }
-    skip 'This is an example test, replace with your own test.'
+packages = %w(golang
+              libjpeg-turbo8-dev
+              make
+              tmux
+              htop
+              chromium-browser
+              git
+              cmake
+              zlib1g-dev
+              libjpeg-dev
+              xvfb
+              libav-tools
+              xorg-dev
+              python-opengl
+              libboost-all-dev
+              libsdl2-dev
+              swig)
+              
+packages.each do |item|
+  describe package item do
+    it { should be_installed }
   end
-end
-
-describe port(80) do
-  it { should_not be_listening }
-  skip 'This is an example test, replace with your own test.'
 end

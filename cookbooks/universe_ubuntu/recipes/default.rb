@@ -35,7 +35,6 @@ packages.each { |item| package item }
 remote_file '/tmp/Anaconda3-4.2.0-Linux-x86_64.sh' do
   source 'https://repo.continuum.io/archive/Anaconda3-4.2.0-Linux-x86_64.sh'
   checksum '73b51715a12b6382dd4df3dd1905b531bd6792d4aa7273b2377a0436d45f0e78'
-  notifies :run, 'execute[install_anaconda]', :immediately
 end
 
 execute 'install_anaconda' do
@@ -60,8 +59,8 @@ apt_repository "docker" do
   key '58118E89F3A912897C070ADBF76221572C52609D'
 end
 
-docker = %w(linux-image-extra-$(uname -r)
-            linux-image-extra-virtual
-            docker-image)
+docker_pkgs = ["linux-image-extra-#{node['os_version']}",
+              "linux-image-extra-virtual",
+              "docker-image"]
 
-docker.each { |item| package item}
+docker_pkgs.each { |item| package item }

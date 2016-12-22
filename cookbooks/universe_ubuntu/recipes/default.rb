@@ -37,3 +37,9 @@ remote_file '/tmp/Anaconda3-4.2.0-Linux-x86_64.sh' do
   checksum '73b51715a12b6382dd4df3dd1905b531bd6792d4aa7273b2377a0436d45f0e78'
   notifies :run, 'execute[install_anaconda]', :immediately
 end
+
+execute 'install_anaconda' do
+  user 'vagrant'
+  command 'bash /tmp/Anaconda3-4.2.0-Linux-x86_64.sh -b'
+  not_if '[ -x /home/vagrant/anaconda3/bin/conda ]'
+end

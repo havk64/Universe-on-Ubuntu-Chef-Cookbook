@@ -51,3 +51,11 @@ ruby_block 'Add anaconda to the PATH' do
     file.write_file
   end
 end
+
+apt_repository "docker" do
+  uri "https://apt.dockerproject.org/repo"
+  distribution "#{node['platform']}-#{node['lsb']['codename']}"
+  components ["main"]
+  keyserver 'hkp://ha.pool.sks-keyservers.net:80'
+  key '58118E89F3A912897C070ADBF76221572C52609D'
+end

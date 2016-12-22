@@ -59,3 +59,9 @@ apt_repository "docker" do
   keyserver 'hkp://ha.pool.sks-keyservers.net:80'
   key '58118E89F3A912897C070ADBF76221572C52609D'
 end
+
+docker = %w(linux-image-extra-$(uname -r)
+            linux-image-extra-virtual
+            docker-image)
+
+docker.each { |item| package item}

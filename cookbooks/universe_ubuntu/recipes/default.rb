@@ -43,3 +43,11 @@ execute 'install_anaconda' do
   command 'bash /tmp/Anaconda3-4.2.0-Linux-x86_64.sh -b'
   not_if '[ -x /home/vagrant/anaconda3/bin/conda ]'
 end
+
+ruby_block 'Add anaconda to the PATH' do
+  block do
+    file = Chef::Util::FileEdit.new '/home/vagrant/.bashrc'
+    file.insert_line_if_no_match(/home\/$USER\/anaconda3\/bin:$PATH/, %q'export PATH="/home/$USER/anaconda3/bin:$PATH"')
+    file.write_file
+  end
+end

@@ -51,6 +51,10 @@ ruby_block 'Add anaconda to the PATH' do
   end
 end
 
+cookbook_file '/home/vagrant/environment.yml' do
+  source 'environment.yml'
+end
+
 apt_repository "docker" do
   uri "https://apt.dockerproject.org/repo"
   distribution "#{node['platform']}-#{node['lsb']['codename']}"

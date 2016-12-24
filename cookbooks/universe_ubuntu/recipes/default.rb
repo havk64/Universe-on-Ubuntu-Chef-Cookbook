@@ -58,15 +58,15 @@ cookbook_file "#{home}/environment.yml" do
   source 'environment.yml'
 end
 
-apt_repository "docker" do
+apt_repository 'docker' do
   uri 'https://apt.dockerproject.org/repo'
   distribution "#{node['platform']}-#{node['lsb']['codename']}"
-  components ["main"]
+  components ['main']
   key 'https://apt.dockerproject.org/gpg'
 end
 
 docker_pkgs = ["linux-image-extra-#{node['os_version']}",
-               "linux-image-extra-virtual",
-               "docker-engine"]
+               'linux-image-extra-virtual',
+               'docker-engine']
 
 docker_pkgs.each { |item| package item }

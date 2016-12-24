@@ -6,6 +6,9 @@
 
 include_recipe 'apt::default'
 
+user = node['universe']['user']
+home = node['etc']['passwd'][user]['dir']
+
 apt_repository 'newer golang apt repo' do
   uri 'ppa:ubuntu-lxc/lxd-stable'
   only_if { node['platform_version'] == '14.04' }
@@ -37,21 +40,21 @@ remote_file '/tmp/Anaconda3-4.2.0-Linux-x86_64.sh' do
 end
 
 execute 'install_anaconda' do
-  user 'vagrant'
+  user user
   command 'bash /tmp/Anaconda3-4.2.0-Linux-x86_64.sh -b'
-  not_if '[ -x /home/vagrant/anaconda3/bin/conda ]'
+  not_if "[ -x #{home}/anaconda3/bin/conda ]"
 end
 
 ruby_block 'Add anaconda to the PATH' do
   block do
     file = Chef::Util::FileEdit.new '/home/vagrant/.bashrc'
     file.insert_line_if_no_match(/home\/$USER\/anaconda3\/bin:$PATH/,
-    %q(export PATH="/home/$USER/anaconda3/bin:$PATH"))
+    "export PATH=\"#{home}/anaconda3/bin:$PATH\"")
     file.write_file
   end
 end
 
-cookbook_file '/home/vagrant/environment.yml' do
+cookbook_file "#{home}/environment.yml" do
   source 'environment.yml'
 end
 

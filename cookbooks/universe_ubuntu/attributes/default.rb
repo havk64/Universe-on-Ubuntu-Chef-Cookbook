@@ -1,0 +1,1 @@
+default['universe']['user'] = 'vagrant'

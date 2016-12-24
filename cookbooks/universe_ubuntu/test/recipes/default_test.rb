@@ -22,7 +22,7 @@ packages = %w(golang
               libboost-all-dev
               libsdl2-dev
               swig)
-              
+
 packages.each do |item|
   describe package item do
     it { should be_installed }

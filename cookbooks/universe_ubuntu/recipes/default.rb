@@ -47,7 +47,7 @@ end
 
 ruby_block 'Add anaconda to the PATH' do
   block do
-    file = Chef::Util::FileEdit.new '/home/vagrant/.bashrc'
+    file = Chef::Util::FileEdit.new "#{home}/.bashrc"
     file.insert_line_if_no_match(%r{#{home}/anaconda3/bin:\$PATH"$},
     "export PATH=\"#{home}/anaconda3/bin:$PATH\"")
     file.write_file

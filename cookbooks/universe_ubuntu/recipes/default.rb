@@ -46,7 +46,8 @@ end
 ruby_block 'Add anaconda to the PATH' do
   block do
     file = Chef::Util::FileEdit.new '/home/vagrant/.bashrc'
-    file.insert_line_if_no_match(/home\/$USER\/anaconda3\/bin:$PATH/, %q'export PATH="/home/$USER/anaconda3/bin:$PATH"')
+    file.insert_line_if_no_match(/home\/$USER\/anaconda3\/bin:$PATH/,
+    %q(export PATH="/home/$USER/anaconda3/bin:$PATH"))
     file.write_file
   end
 end
@@ -56,14 +57,14 @@ cookbook_file '/home/vagrant/environment.yml' do
 end
 
 apt_repository "docker" do
-  uri "https://apt.dockerproject.org/repo"
+  uri 'https://apt.dockerproject.org/repo'
   distribution "#{node['platform']}-#{node['lsb']['codename']}"
   components ["main"]
-  key "https://apt.dockerproject.org/gpg"
+  key 'https://apt.dockerproject.org/gpg'
 end
 
 docker_pkgs = ["linux-image-extra-#{node['os_version']}",
-              "linux-image-extra-virtual",
-              "docker-engine"]
+               "linux-image-extra-virtual",
+               "docker-engine"]
 
 docker_pkgs.each { |item| package item }

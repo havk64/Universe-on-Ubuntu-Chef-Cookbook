@@ -28,3 +28,7 @@ packages.each do |item|
     it { should be_installed }
   end
 end
+
+describe file '/tmp/kitchen/cache/Anaconda3-4.2.0-Linux-x86_64.sh' do
+  it { should exist }
+end

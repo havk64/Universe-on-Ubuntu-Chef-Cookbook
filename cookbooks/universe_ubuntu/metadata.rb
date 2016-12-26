@@ -1,4 +1,4 @@
-name 'Universe on Ubuntu'
+name 'universe_ubuntu'
 maintainer 'Alexandro de Oliveira'
 maintainer_email 'alexandro.oliveira@holbertonschool.com'
 license 'all_rights'

@@ -21,5 +21,29 @@ describe 'universe_ubuntu::default' do
     it 'converges successfully' do
       expect { chef_run }.to_not raise_error
     end
+
+    pkgs = %w(golang
+          libjpeg-turbo8-dev
+          make
+          tmux
+          htop
+          chromium-browser
+          git
+          cmake
+          zlib1g-dev
+          libjpeg-dev
+          xvfb
+          libav-tools
+          xorg-dev
+          python-opengl
+          libboost-all-dev
+          libsdl2-dev
+          swig)
+
+    pkgs.each do |name|
+      it "install #{name} package" do
+        expect(chef_run).to install_package name
+      end
+    end
   end
 end

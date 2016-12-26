@@ -9,7 +9,7 @@ require 'spec_helper'
 describe 'universe_ubuntu::default' do
   context 'When all attributes are default, on an Ubuntu' do
     before do
-      stub_command("[ -x /home/vagrant/anaconda3/bin/conda ]").and_return(0)
+      stub_command('[ -x /home/vagrant/anaconda3/bin/conda ]').and_return(0)
     end
 
     let(:chef_run) do
@@ -23,22 +23,22 @@ describe 'universe_ubuntu::default' do
     end
 
     pkgs = %w(golang
-          libjpeg-turbo8-dev
-          make
-          tmux
-          htop
-          chromium-browser
-          git
-          cmake
-          zlib1g-dev
-          libjpeg-dev
-          xvfb
-          libav-tools
-          xorg-dev
-          python-opengl
-          libboost-all-dev
-          libsdl2-dev
-          swig)
+              libjpeg-turbo8-dev
+              make
+              tmux
+              htop
+              chromium-browser
+              git
+              cmake
+              zlib1g-dev
+              libjpeg-dev
+              xvfb
+              libav-tools
+              xorg-dev
+              python-opengl
+              libboost-all-dev
+              libsdl2-dev
+              swig)
 
     pkgs.each do |name|
       it "install #{name} package" do

@@ -45,5 +45,17 @@ describe 'universe_ubuntu::default' do
         expect(chef_run).to install_package name
       end
     end
+
+    it 'creates remote_file anaconda if missing' do
+      user = 'vagrant'
+      expect(chef_run).to create_remote_file_if_missing(
+        "#{Chef::Config[:file_cache_path]}/Anaconda3-4.2.0-Linux-x86_64.sh")
+        .with(
+          owner: user,
+          group: user,
+          mode: '0755',
+          checksum: '73b51715a12b6382dd4df3dd1905b531bd6792d4aa7273b2377a0436d45f0e78'
+        )
+    end
   end
 end

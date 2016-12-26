@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: universe-ubuntu
+# Cookbook Name:: universe_ubuntu
 # Recipe:: default
 #
 # Copyright (c) 2016 The Authors, All Rights Reserved.
@@ -35,8 +35,12 @@ packages = %w(golang
 packages.each { |item| package item }
 
 remote_file "#{Chef::Config[:file_cache_path]}/Anaconda3-4.2.0-Linux-x86_64.sh" do
+  owner user
+  group user
+  mode '0755'
   source 'https://repo.continuum.io/archive/Anaconda3-4.2.0-Linux-x86_64.sh'
   checksum '73b51715a12b6382dd4df3dd1905b531bd6792d4aa7273b2377a0436d45f0e78'
+  action :create_if_missing
 end
 
 execute 'install_anaconda' do

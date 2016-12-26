@@ -31,4 +31,7 @@ end
 
 describe file '/tmp/kitchen/cache/Anaconda3-4.2.0-Linux-x86_64.sh' do
   it { should exist }
+  it { should be_file }
+  its('type') { should eq :file }
+  its('sha256sum') { should eq '73b51715a12b6382dd4df3dd1905b531bd6792d4aa7273b2377a0436d45f0e78' }
 end

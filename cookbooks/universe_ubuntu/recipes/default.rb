@@ -8,7 +8,14 @@ include_recipe 'apt::default'
 
 user = node['universe']['user']
 home = node['universe']['home']
+gpu = node['universe']['gpu'] ? 'gpu' : 'cpu'
+tf_binary = "https://storage.googleapis.com/tensorflow/linux/#{gpu}/tensorflow-0.11.0-cp35-cp35m-linux_x86_64.whl"
 conda_prefix = "#{home}/anaconda3/envs/universe"
+path = {
+  PATH:               "#{conda_prefix}/bin:#{ENV['PATH']}",
+  CONDA_PREFIX:       conda_prefix,
+  CONDA_DEFAULT_ENV:  'universe'
+}
 
 apt_repository 'newer golang apt repo' do
   uri 'ppa:ubuntu-lxc/lxd-stable'
@@ -68,6 +75,13 @@ execute 'Create a conda environment' do
   cwd home
   command "#{home}/anaconda3/bin/conda env create -f environment.yml"
   not_if "[ -e #{conda_prefix} ]"
+end
+
+execute 'Install Tensorflow' do
+  user user
+  environment path
+  command "#{conda_prefix}/bin/pip install --ignore-installed --upgrade #{tf_binary}"
+  not_if "[ -x #{conda_prefix}/bin/tensorboard ]"
 end
 
 apt_repository 'docker' do

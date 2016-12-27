@@ -7,7 +7,7 @@
 include_recipe 'apt::default'
 
 user = node['universe']['user']
-home = node['etc']['passwd'][user]['dir']
+home = node['universe']['home']
 
 apt_repository 'newer golang apt repo' do
   uri 'ppa:ubuntu-lxc/lxd-stable'

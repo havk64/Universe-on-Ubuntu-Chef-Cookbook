@@ -8,6 +8,7 @@ include_recipe 'apt::default'
 
 user = node['universe']['user']
 home = node['universe']['home']
+conda_prefix = "#{home}/anaconda3/envs/universe"
 
 apt_repository 'newer golang apt repo' do
   uri 'ppa:ubuntu-lxc/lxd-stable'
@@ -60,6 +61,13 @@ end
 
 cookbook_file "#{home}/environment.yml" do
   source 'environment.yml'
+end
+
+execute 'Create a conda environment' do
+  user user
+  cwd home
+  command "#{home}/anaconda3/bin/conda env create -f environment.yml"
+  not_if "[ -e #{conda_prefix} ]"
 end
 
 apt_repository 'docker' do

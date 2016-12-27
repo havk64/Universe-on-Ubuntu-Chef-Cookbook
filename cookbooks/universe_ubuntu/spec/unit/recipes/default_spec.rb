@@ -62,8 +62,12 @@ describe 'universe_ubuntu::default' do
     end
 
     it 'installs anaconda' do
-      expect(chef_run).to_not run_execute('bash /home/vagrant/cache/Anaconda3-4.2.0-Linux-x86_64.sh -b')
+      expect(chef_run).to_not run_execute("bash #{Chef::Config[:file_cache_path]}/Anaconda3-4.2.0-Linux-x86_64.sh -b")
         .with(user: 'vagrant')
+    end
+
+    it 'creates conda env file' do
+      expect(chef_run).to create_cookbook_file('/home/vagrant/environment.yml')
     end
   end
 end

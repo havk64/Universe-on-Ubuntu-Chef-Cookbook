@@ -60,5 +60,10 @@ describe 'universe_ubuntu::default' do
           checksum: '73b51715a12b6382dd4df3dd1905b531bd6792d4aa7273b2377a0436d45f0e78'
         )
     end
+
+    it 'installs anaconda' do
+      expect(chef_run).to_not run_execute('bash /home/vagrant/cache/Anaconda3-4.2.0-Linux-x86_64.sh -b')
+        .with(user: 'vagrant')
+    end
   end
 end

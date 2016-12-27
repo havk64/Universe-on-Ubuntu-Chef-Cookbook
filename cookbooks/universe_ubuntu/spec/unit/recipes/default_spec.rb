@@ -69,5 +69,10 @@ describe 'universe_ubuntu::default' do
     it 'creates conda env file' do
       expect(chef_run).to create_cookbook_file('/home/vagrant/environment.yml')
     end
+
+    it 'creates conda environment' do
+      expect(chef_run).to_not run_execute('conda env create -f environment.yml')
+        .with(user: 'vagrant', cwd: '/home/vagrant')
+    end
   end
 end

@@ -18,6 +18,7 @@ describe 'universe_ubuntu::default' do
       ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '14.04') do |node|
         node.override['universe']['user'] = 'vagrant'
         node.override['universe']['home'] = '/home/vagrant'
+        node.override['universe']['gpu'] = true
       end.converge(described_recipe)
     end
 
@@ -73,6 +74,18 @@ describe 'universe_ubuntu::default' do
     it 'creates conda environment' do
       expect(chef_run).to_not run_execute('conda env create -f environment.yml')
         .with(user: 'vagrant', cwd: '/home/vagrant')
+    end
+
+    it 'Installs Tensorflow' do
+      conda_prefix = '/home/vagrant/anaconda3/envs/universe'
+      expect(chef_run).to run_execute("#{conda_prefix}/bin/pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.11.0-cp35-cp35m-linux_x86_64.whl")
+        .with(
+        user: 'vagrant',
+        environment: {
+          PATH: "#{conda_prefix}/bin:#{ENV['PATH']}",
+          CONDA_PREFIX: conda_prefix,
+          CONDA_DEFAULT_ENV: 'universe'
+        })
     end
   end
 end

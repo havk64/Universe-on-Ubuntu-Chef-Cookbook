@@ -19,6 +19,7 @@ describe 'universe_ubuntu::default' do
         node.override['universe']['user'] = 'vagrant'
         node.override['universe']['home'] = '/home/vagrant'
         node.override['universe']['gpu'] = true
+        node.automatic['os_version'] = 'specific_kernel_version'
       end.converge(described_recipe)
     end
 
@@ -78,7 +79,7 @@ describe 'universe_ubuntu::default' do
 
     it 'Installs Tensorflow' do
       conda_prefix = '/home/vagrant/anaconda3/envs/universe'
-      expect(chef_run).to run_execute("#{conda_prefix}/bin/pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.11.0-cp35-cp35m-linux_x86_64.whl")
+      expect(chef_run).to_not run_execute("#{conda_prefix}/bin/pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.11.0-cp35-cp35m-linux_x86_64.whl")
         .with(
         user: 'vagrant',
         environment: {
@@ -86,6 +87,17 @@ describe 'universe_ubuntu::default' do
           CONDA_PREFIX: conda_prefix,
           CONDA_DEFAULT_ENV: 'universe'
         })
+    end
+
+
+    docker_pkgs = ['linux-image-extra-specific_kernel_version',
+                   'linux-image-extra-virtual',
+                   'docker-engine']
+
+    docker_pkgs.each do |name|
+      it "Installs #{name} package" do
+        expect(chef_run).to install_package(name)
+      end
     end
   end
 end

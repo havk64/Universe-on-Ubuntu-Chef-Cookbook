@@ -29,7 +29,7 @@ packages.each do |item|
   end
 end
 
-describe file '/tmp/kitchen/cache/Anaconda3-4.2.0-Linux-x86_64.sh' do
+describe file "#{Chef::Config[:file_cache_path]}/Anaconda3-4.2.0-Linux-x86_64.sh" do
   it { should exist }
   it { should be_file }
   its('owner') { should eq 'vagrant' }

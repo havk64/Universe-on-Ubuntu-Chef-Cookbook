@@ -81,14 +81,13 @@ describe 'universe_ubuntu::default' do
       conda_prefix = '/home/vagrant/anaconda3/envs/universe'
       expect(chef_run).to_not run_execute("#{conda_prefix}/bin/pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.11.0-cp35-cp35m-linux_x86_64.whl")
         .with(
-        user: 'vagrant',
-        environment: {
-          PATH: "#{conda_prefix}/bin:#{ENV['PATH']}",
-          CONDA_PREFIX: conda_prefix,
-          CONDA_DEFAULT_ENV: 'universe'
-        })
+          user: 'vagrant',
+          environment: {
+            PATH: "#{conda_prefix}/bin:#{ENV['PATH']}",
+            CONDA_PREFIX: conda_prefix,
+            CONDA_DEFAULT_ENV: 'universe'
+          })
     end
-
 
     docker_pkgs = ['linux-image-extra-specific_kernel_version',
                    'linux-image-extra-virtual',

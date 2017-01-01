@@ -98,5 +98,9 @@ describe 'universe_ubuntu::default' do
         expect(chef_run).to install_package(name)
       end
     end
+
+    it 'Clone gym repo' do
+      expect(chef_run).to sync_git("#{Chef::Config[:file_cache_path]}/gym")
+    end
   end
 end

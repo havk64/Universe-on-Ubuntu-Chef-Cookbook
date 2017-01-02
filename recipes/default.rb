@@ -97,6 +97,12 @@ docker_pkgs = ["linux-image-extra-#{node['os_version']}",
 
 docker_pkgs.each { |item| package item }
 
+group 'docker' do
+  action :modify
+  append true
+  members user
+end
+
 git "#{Chef::Config[:file_cache_path]}/gym" do
   repository 'https://github.com/openai/gym.git'
   revision 'master'

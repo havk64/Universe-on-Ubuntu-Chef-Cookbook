@@ -121,3 +121,10 @@ execute 'Install gym modules' do
  cwd "#{Chef::Config[:file_cache_path]}/gym"
  command "#{conda_prefix}/bin/pip install -e '.[all]'"
 end
+
+execute 'Install Universe modules' do
+ user user
+ environment path
+ cwd "#{Chef::Config[:file_cache_path]}/universe"
+ command "#{conda_prefix}/bin/pip install -e ."
+end

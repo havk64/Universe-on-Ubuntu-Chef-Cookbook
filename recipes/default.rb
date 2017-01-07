@@ -114,3 +114,10 @@ git "#{Chef::Config[:file_cache_path]}/universe" do
   revision 'master'
   action :sync
 end
+
+execute 'Install gym modules' do
+ user user
+ environment path
+ cwd "#{Chef::Config[:file_cache_path]}/gym"
+ command "#{conda_prefix}/bin/pip install -e '.[all]'"
+end

@@ -103,13 +103,13 @@ group 'docker' do
   members user
 end
 
-git "#{Chef::Config[:file_cache_path]}/gym" do
+git "#{home}/gym" do
   repository 'https://github.com/openai/gym.git'
   revision 'master'
   action :sync
 end
 
-git "#{Chef::Config[:file_cache_path]}/universe" do
+git "#{home}/universe" do
   repository 'https://github.com/openai/universe.git'
   revision 'master'
   action :sync
@@ -118,13 +118,13 @@ end
 execute 'Install gym modules' do
  user user
  environment path
- cwd "#{Chef::Config[:file_cache_path]}/gym"
+ cwd "#{home}/gym"
  command "#{conda_prefix}/bin/pip install -e '.[all]'"
 end
 
 execute 'Install Universe modules' do
  user user
  environment path
- cwd "#{Chef::Config[:file_cache_path]}/universe"
+ cwd "#{home}/universe"
  command "#{conda_prefix}/bin/pip install -e ."
 end

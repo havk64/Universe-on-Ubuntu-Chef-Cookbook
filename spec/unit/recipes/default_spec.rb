@@ -106,5 +106,9 @@ describe 'universe_ubuntu::default' do
     it 'Clone universe repo' do
       expect(chef_run).to sync_git("/home/vagrant/universe")
     end
+
+    it 'Clone starter agent repo' do
+      expect(chef_run).to sync_git("/home/vagrant/universe-starter-agent")
+    end
   end
 end

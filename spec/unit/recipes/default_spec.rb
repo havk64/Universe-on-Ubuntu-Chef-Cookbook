@@ -100,11 +100,11 @@ describe 'universe_ubuntu::default' do
     end
 
     it 'Clone gym repo' do
-      expect(chef_run).to sync_git("#{Chef::Config[:file_cache_path]}/gym")
+      expect(chef_run).to sync_git("/home/vagrant/gym")
     end
 
     it 'Clone universe repo' do
-      expect(chef_run).to sync_git("#{Chef::Config[:file_cache_path]}/universe")
+      expect(chef_run).to sync_git("/home/vagrant/universe")
     end
   end
 end

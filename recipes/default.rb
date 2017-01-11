@@ -115,6 +115,13 @@ git "#{home}/universe" do
   action :sync
 end
 
+git "#{home}/universe-starter-agent" do
+  user user
+  repository 'https://github.com/openai/universe-starter-agent.git'
+  revision 'master'
+  action :sync
+end
+
 execute 'Install gym modules' do
  user user
  environment path

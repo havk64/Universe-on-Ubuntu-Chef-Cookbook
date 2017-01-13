@@ -97,10 +97,15 @@ docker_pkgs = ["linux-image-extra-#{node['os_version']}",
 
 docker_pkgs.each { |item| package item }
 
+service 'docker' do
+  action :nothing
+end
+
 group 'docker' do
   action :modify
   append true
   members user
+  notifies :restart, 'service[docker]', :immediately
 end
 
 git "#{home}/gym" do

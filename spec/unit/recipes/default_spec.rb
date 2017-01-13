@@ -28,7 +28,7 @@ describe 'universe_ubuntu::default' do
     end
 
     it 'add new golang repository' do
-      expect(chef_run).to add_apt_repository('lxd-stable')
+      expect(chef_run).to add_apt_repository('newer golang apt repo')
     end
 
     it 'add docker repository' do

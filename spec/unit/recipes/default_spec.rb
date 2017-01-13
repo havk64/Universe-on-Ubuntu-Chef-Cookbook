@@ -27,6 +27,14 @@ describe 'universe_ubuntu::default' do
       expect { chef_run }.to_not raise_error
     end
 
+    it 'add new golang repository' do
+      expect(chef_run).to add_apt_repository('lxd-stable')
+    end
+
+    it 'add docker repository' do
+      expect(chef_run).to add_apt_repository('docker')
+    end
+
     pkgs = %w(golang
               libjpeg-turbo8-dev
               make

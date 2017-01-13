@@ -17,6 +17,7 @@ dependencies:
 - python=3.5.2=0
 - readline=6.2=2
 - setuptools=27.2.0=py35_0
+- scipy=0.18.1=np111py35_1
 - six=1.10.0=py35_0
 - sqlite=3.13.0=0
 - tk=8.5.18=0

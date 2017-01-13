@@ -128,15 +128,15 @@ git "#{home}/universe-starter-agent" do
 end
 
 execute 'Install gym modules' do
- user user
- environment path
- cwd "#{home}/gym"
- command "#{conda_prefix}/bin/pip install -e '.[all]'"
+  user user
+  environment path
+  cwd "#{home}/gym"
+  command "#{conda_prefix}/bin/pip install -e '.[all]'"
 end
 
 execute 'Install Universe modules' do
- user user
- environment path
- cwd "#{home}/universe"
- command "#{conda_prefix}/bin/pip install -e ."
+  user user
+  environment path
+  cwd "#{home}/universe"
+  command "#{conda_prefix}/bin/pip install -e ."
 end

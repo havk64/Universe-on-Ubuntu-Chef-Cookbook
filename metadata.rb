@@ -14,4 +14,4 @@ version '0.1.0'
 # gets a `View Source` link
 # source_url 'https://github.com/<insert_org_here>/universe_ubuntu' if respond_to?(:source_url)
 
-depends 'apt', '~> 4.0'
+depends 'apt', '~> 5.0'

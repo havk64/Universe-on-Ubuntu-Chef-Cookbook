@@ -118,5 +118,18 @@ describe 'universe_ubuntu::default' do
     it 'Clone starter agent repo' do
       expect(chef_run).to sync_git('/home/vagrant/universe-starter-agent')
     end
+
+    it 'Install Gym modules' do
+      conda_prefix = '/home/vagrant/anaconda3/envs/universe'
+      expect(chef_run).to run_execute("#{conda_prefix}/bin/pip install -e '.[all]'")
+        .with(
+          user: 'vagrant',
+          cwd: '/home/vagrant/gym',
+          environment: {
+            PATH: "#{conda_prefix}/bin:#{ENV['PATH']}",
+            CONDA_PREFIX: conda_prefix,
+            CONDA_DEFAULT_ENV: 'universe'
+          })
+    end
   end
 end

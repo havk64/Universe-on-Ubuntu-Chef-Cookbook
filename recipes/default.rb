@@ -66,15 +66,6 @@ execute 'install_anaconda' do
   not_if "[ -x #{home}/anaconda3/bin/conda ]"
 end
 
-ruby_block 'Add anaconda to the PATH' do
-  block do
-    file = Chef::Util::FileEdit.new "#{home}/.bashrc"
-    file.insert_line_if_no_match(%r{#{home}/anaconda3/bin:\$PATH"$},
-    "export PATH=\"#{home}/anaconda3/bin:$PATH\"")
-    file.write_file
-  end
-end
-
 cookbook_file "#{home}/environment.yml" do
   source 'environment.yml'
 end
@@ -84,6 +75,17 @@ execute 'Create a conda environment' do
   cwd home
   command "#{home}/anaconda3/bin/conda env create -f environment.yml"
   not_if "[ -e #{conda_prefix} ]"
+end
+
+ruby_block 'Add Anaconda and Universe to bashrc' do
+  block do
+    file = Chef::Util::FileEdit.new "#{home}/.bashrc"
+    file.insert_line_if_no_match(%r{#{home}/anaconda3/bin:\$PATH"$},
+    "export PATH=\"#{home}/anaconda3/bin:$PATH\"")
+    file.insert_line_if_no_match(/source activate universe/,
+    "source activate universe")
+    file.write_file
+  end
 end
 
 execute 'Install Tensorflow' do

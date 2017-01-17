@@ -83,7 +83,7 @@ ruby_block 'Add Anaconda and Universe to bashrc' do
     file.insert_line_if_no_match(%r{#{home}/anaconda3/bin:\$PATH"$},
     "export PATH=\"#{home}/anaconda3/bin:$PATH\"")
     file.insert_line_if_no_match(/source activate universe/,
-    "source activate universe")
+    'source activate universe')
     file.write_file
   end
 end

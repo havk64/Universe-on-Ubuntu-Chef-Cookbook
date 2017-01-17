@@ -16,8 +16,8 @@ describe 'universe_ubuntu::default' do
 
     let(:chef_run) do
       ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '14.04') do |node|
-        node.override['universe']['user'] = 'vagrant'
-        node.override['universe']['home'] = '/home/vagrant'
+        node.override['universe']['user']['name'] = 'vagrant'
+        node.override['universe']['user']['home'] = '/home/vagrant'
         node.override['universe']['gpu'] = true
         node.automatic['os_version'] = 'specific_kernel_version'
       end.converge(described_recipe)

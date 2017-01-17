@@ -22,6 +22,15 @@ apt_repository 'newer golang apt repo' do
   only_if { node['platform_version'] == '14.04' }
 end
 
+ruby_block 'Allow non root users start the GUI' do
+  block do
+    file = Chef::Util::FileEdit.new '/etc/X11/Xwrapper.config'
+    file.search_file_replace_line(/^allowed_users=console/,
+    'allowed_users=anybody')
+    file.write_file
+  end
+end
+
 packages = %w(golang
               libjpeg-turbo8-dev
               make

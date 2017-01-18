@@ -78,7 +78,9 @@ describe 'universe_ubuntu::default' do
     end
 
     it 'creates conda env file' do
-      expect(chef_run).to create_template('/home/vagrant/environment.yml').with(user: 'vagrant')
+      expect(chef_run).to create_template('/home/vagrant/environment.yml')
+        .with(owner: 'vagrant',
+              group: 'vagrant')
     end
 
     it 'creates conda environment' do

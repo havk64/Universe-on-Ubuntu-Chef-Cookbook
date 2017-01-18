@@ -66,7 +66,8 @@ execute 'install_anaconda' do
 end
 
 template "#{home}/environment.yml" do
-  user user
+  owner user
+  group user
   source 'environment.erb'
 end
 

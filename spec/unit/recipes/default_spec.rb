@@ -9,9 +9,9 @@ require 'spec_helper'
 describe 'universe_ubuntu::default' do
   context 'When all attributes are default, on an Ubuntu' do
     before do
-      stub_command('[ -x /home/vagrant/anaconda3/bin/conda ]').and_return(0)
-      stub_command('[ -e /home/vagrant/anaconda3/envs/universe ]').and_return(0)
-      stub_command('[ -x /home/vagrant/anaconda3/envs/universe/bin/tensorboard ]').and_return(0)
+      stub_command('[ -x /home/vagrant/anaconda3/bin/conda ]').and_return(false)
+      stub_command('[ -e /home/vagrant/anaconda3/envs/universe ]').and_return(false)
+      stub_command('[ -x /home/vagrant/anaconda3/envs/universe/bin/tensorboard ]').and_return(false)
     end
 
     let(:chef_run) do
@@ -73,7 +73,7 @@ describe 'universe_ubuntu::default' do
     end
 
     it 'installs anaconda' do
-      expect(chef_run).to_not run_execute("bash #{Chef::Config[:file_cache_path]}/Anaconda3-4.2.0-Linux-x86_64.sh -b")
+      expect(chef_run).to run_execute("bash #{Chef::Config[:file_cache_path]}/Anaconda3-4.2.0-Linux-x86_64.sh -b")
         .with(user: 'vagrant')
     end
 
@@ -82,13 +82,13 @@ describe 'universe_ubuntu::default' do
     end
 
     it 'creates conda environment' do
-      expect(chef_run).to_not run_execute('conda env create -f environment.yml')
+      expect(chef_run).to run_execute('/home/vagrant/anaconda3/bin/conda env create -f environment.yml')
         .with(user: 'vagrant', cwd: '/home/vagrant')
     end
 
     it 'Installs Tensorflow' do
       conda_prefix = '/home/vagrant/anaconda3/envs/universe'
-      expect(chef_run).to_not run_execute("#{conda_prefix}/bin/pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.11.0-cp35-cp35m-linux_x86_64.whl")
+      expect(chef_run).to run_execute("#{conda_prefix}/bin/pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.11.0-cp35-cp35m-linux_x86_64.whl")
         .with(
           user: 'vagrant',
           environment: {

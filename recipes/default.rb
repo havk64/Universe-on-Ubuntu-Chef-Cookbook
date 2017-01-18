@@ -65,8 +65,9 @@ execute 'install_anaconda' do
   not_if "[ -x #{home}/anaconda3/bin/conda ]"
 end
 
-cookbook_file "#{home}/environment.yml" do
-  source 'environment.yml'
+template "#{home}/environment.yml" do
+  user user
+  source 'environment.erb'
 end
 
 execute 'Create a conda environment' do

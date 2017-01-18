@@ -8,7 +8,7 @@ include_recipe 'apt::default'
 
 user = node['universe']['user']['name']
 home = node['universe']['user']['home']
-conda_prefix = "#{home}/anaconda3/envs/universe"
+conda_prefix = node['universe']['conda_prefix']
 path = {
   PATH:               "#{conda_prefix}/bin:#{ENV['PATH']}",
   CONDA_PREFIX:       conda_prefix,

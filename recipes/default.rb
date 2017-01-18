@@ -8,14 +8,13 @@ include_recipe 'apt::default'
 
 user = node['universe']['user']['name']
 home = node['universe']['user']['home']
-gpu = node['universe']['gpu'] ? 'gpu' : 'cpu'
-tf_binary = "https://storage.googleapis.com/tensorflow/linux/#{gpu}/tensorflow-0.11.0-cp35-cp35m-linux_x86_64.whl"
 conda_prefix = "#{home}/anaconda3/envs/universe"
 path = {
   PATH:               "#{conda_prefix}/bin:#{ENV['PATH']}",
   CONDA_PREFIX:       conda_prefix,
   CONDA_DEFAULT_ENV:  'universe'
 }
+tf_binary = node['universe']['tf_binary']
 
 apt_repository 'newer golang apt repo' do
   uri 'ppa:ubuntu-lxc/lxd-stable'

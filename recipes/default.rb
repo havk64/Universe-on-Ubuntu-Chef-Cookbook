@@ -6,8 +6,8 @@
 
 include_recipe 'apt::default'
 
-user = node['universe']['user']
-home = node['universe']['home']
+user = node['universe']['user']['name']
+home = node['universe']['user']['home']
 gpu = node['universe']['gpu'] ? 'gpu' : 'cpu'
 tf_binary = "https://storage.googleapis.com/tensorflow/linux/#{gpu}/tensorflow-0.11.0-cp35-cp35m-linux_x86_64.whl"
 conda_prefix = "#{home}/anaconda3/envs/universe"

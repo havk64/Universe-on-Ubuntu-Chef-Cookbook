@@ -8,12 +8,8 @@ include_recipe 'apt::default'
 
 user = node['universe']['user']['name']
 home = node['universe']['user']['home']
-conda_prefix = node['universe']['conda_prefix']
-path = {
-  PATH:               "#{conda_prefix}/bin:#{ENV['PATH']}",
-  CONDA_PREFIX:       conda_prefix,
-  CONDA_DEFAULT_ENV:  'universe'
-}
+conda_env = node['universe']['conda_env']
+conda_prefix = conda_env[:CONDA_PREFIX]
 tf_binary = node['universe']['tf_binary']
 
 apt_repository 'newer golang apt repo' do
@@ -91,7 +87,7 @@ end
 
 execute 'Install Tensorflow' do
   user user
-  environment path
+  environment conda_env
   command "#{conda_prefix}/bin/pip install --ignore-installed --upgrade #{tf_binary}"
   not_if "[ -x #{conda_prefix}/bin/tensorboard ]"
 end
@@ -141,14 +137,14 @@ end
 
 execute 'Install gym modules' do
   user user
-  environment path
+  environment conda_env
   cwd "#{home}/gym"
   command "#{conda_prefix}/bin/pip install -e '.[all]'"
 end
 
 execute 'Install Universe modules' do
   user user
-  environment path
+  environment conda_env
   cwd "#{home}/universe"
   command "#{conda_prefix}/bin/pip install -e ."
 end

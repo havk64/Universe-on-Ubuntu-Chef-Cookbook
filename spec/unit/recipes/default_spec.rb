@@ -18,7 +18,8 @@ describe 'universe_ubuntu::default' do
       ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '14.04') do |node|
         node.override['universe']['user']['name'] = 'vagrant'
         node.override['universe']['user']['home'] = '/home/vagrant'
-        node.override['universe']['conda_prefix'] = '/home/vagrant/anaconda3/envs/universe'
+        node.override['universe']['conda_env'][:CONDA_PREFIX] = '/home/vagrant/anaconda3/envs/universe'
+        node.override['universe']['conda_env'][:PATH] = "/home/vagrant/anaconda3/envs/universe/bin:#{ENV['PATH']}"
         node.override['universe']['gpu'] = true
         node.automatic['os_version'] = 'specific_kernel_version'
       end.converge(described_recipe)
@@ -94,9 +95,9 @@ describe 'universe_ubuntu::default' do
         .with(
           user: 'vagrant',
           environment: {
-            PATH: "#{conda_prefix}/bin:#{ENV['PATH']}",
-            CONDA_PREFIX: conda_prefix,
-            CONDA_DEFAULT_ENV: 'universe'
+            'CONDA_DEFAULT_ENV' => 'universe',
+            'CONDA_PREFIX' => conda_prefix,
+            'PATH' => "#{conda_prefix}/bin:#{ENV['PATH']}"
           })
     end
 
@@ -129,9 +130,9 @@ describe 'universe_ubuntu::default' do
           user: 'vagrant',
           cwd: '/home/vagrant/gym',
           environment: {
-            PATH: "#{conda_prefix}/bin:#{ENV['PATH']}",
-            CONDA_PREFIX: conda_prefix,
-            CONDA_DEFAULT_ENV: 'universe'
+            'CONDA_DEFAULT_ENV' => 'universe',
+            'CONDA_PREFIX' => conda_prefix,
+            'PATH' => "#{conda_prefix}/bin:#{ENV['PATH']}"
           })
     end
   end

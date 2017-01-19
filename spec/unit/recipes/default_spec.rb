@@ -135,5 +135,18 @@ describe 'universe_ubuntu::default' do
             'PATH' => "#{conda_prefix}/bin:#{ENV['PATH']}"
           })
     end
+
+    it 'Install Universe modules' do
+      conda_prefix = '/home/vagrant/anaconda3/envs/universe'
+      expect(chef_run).to run_execute("#{conda_prefix}/bin/pip install -e .")
+        .with(
+          user: 'vagrant',
+          cwd: '/home/vagrant/universe',
+          environment: {
+            'CONDA_DEFAULT_ENV' => 'universe',
+            'CONDA_PREFIX' => conda_prefix,
+            'PATH' => "#{conda_prefix}/bin:#{ENV['PATH']}"
+          })
+    end
   end
 end

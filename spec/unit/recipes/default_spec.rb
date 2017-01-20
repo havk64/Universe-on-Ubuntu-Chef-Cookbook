@@ -25,6 +25,8 @@ describe 'universe_ubuntu::default' do
       end.converge(described_recipe)
     end
 
+    let(:add_user) { chef_run.group('docker') }
+
     it 'converges successfully' do
       expect { chef_run }.to_not raise_error
     end
@@ -117,6 +119,14 @@ describe 'universe_ubuntu::default' do
 
     it 'Add current user to docker group' do
       expect(chef_run).to modify_group('docker')
+    end
+
+    it 'Notifies service docker restart' do
+      expect(add_user).to notify('service[docker]').to(:restart).immediately
+    end
+
+    it 'Notifies service lightdm' do
+      expect(add_user).to notify('service[lightdm]').to(:restart).immediately
     end
 
     it 'Clone gym repo' do

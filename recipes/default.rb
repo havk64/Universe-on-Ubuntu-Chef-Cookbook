@@ -24,6 +24,7 @@ ruby_block 'Allow non root users start the GUI' do
     'allowed_users=anybody')
     file.write_file
   end
+  only_if { node['platform_version'] == '14.04' }
 end
 
 packages = %w(golang

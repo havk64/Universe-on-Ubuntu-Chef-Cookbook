@@ -111,6 +111,10 @@ describe 'universe_ubuntu::default' do
       end
     end
 
+    it 'Add current user to docker group' do
+      expect(chef_run).to modify_group('docker')
+    end
+
     it 'Clone gym repo' do
       expect(chef_run).to sync_git('/home/vagrant/gym')
     end

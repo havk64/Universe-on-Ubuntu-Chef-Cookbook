@@ -29,6 +29,10 @@ describe 'universe_ubuntu::default' do
       expect { chef_run }.to_not raise_error
     end
 
+    it 'Include apt recipe' do
+      expect(chef_run).to include_recipe('apt::default')
+    end
+
     it 'add new golang repository' do
       expect(chef_run).to add_apt_repository('newer golang apt repo')
     end

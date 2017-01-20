@@ -110,11 +110,16 @@ service 'docker' do
   action :nothing
 end
 
+service 'lightdm' do
+  action :nothing
+end
+
 group 'docker' do
   action :modify
   append true
   members user
   notifies :restart, 'service[docker]', :immediately
+  notifies :restart, 'service[lightdm]', :immediately
 end
 
 git "#{home}/gym" do

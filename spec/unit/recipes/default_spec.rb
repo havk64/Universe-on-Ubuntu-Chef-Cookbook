@@ -99,6 +99,10 @@ describe 'universe_ubuntu::default' do
         .with(user: 'vagrant', cwd: '/home/vagrant')
     end
 
+    it 'add lines to shell config files' do
+      expect(chef_run).to run_ruby_block('Add Anaconda and Universe to bashrc')
+    end
+
     it 'Installs Tensorflow' do
       conda_prefix = '/home/vagrant/anaconda3/envs/universe'
       expect(chef_run).to run_execute("#{conda_prefix}/bin/pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.11.0-cp35-cp35m-linux_x86_64.whl")
@@ -109,10 +113,6 @@ describe 'universe_ubuntu::default' do
             'CONDA_PREFIX' => conda_prefix,
             'PATH' => "#{conda_prefix}/bin:#{ENV['PATH']}"
           })
-    end
-
-    it 'add lines to shell config files' do
-      expect(chef_run).to run_ruby_block('Add Anaconda and Universe to bashrc')
     end
 
     docker_pkgs = ['linux-image-extra-specific_kernel_version',

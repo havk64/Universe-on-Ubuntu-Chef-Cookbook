@@ -39,6 +39,10 @@ describe 'universe_ubuntu::default' do
       expect(chef_run).to add_apt_repository('newer golang apt repo')
     end
 
+    it 'edit /etc/X11/Xwrapper.config' do
+      expect(chef_run).to run_ruby_block('Allow non root users start the GUI')
+    end
+
     it 'add docker repository' do
       expect(chef_run).to add_apt_repository('docker')
     end

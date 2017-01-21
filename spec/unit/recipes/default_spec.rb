@@ -111,6 +111,10 @@ describe 'universe_ubuntu::default' do
           })
     end
 
+    it 'add lines to shell config files' do
+      expect(chef_run).to run_ruby_block('Add Anaconda and Universe to bashrc')
+    end
+
     docker_pkgs = ['linux-image-extra-specific_kernel_version',
                    'linux-image-extra-virtual',
                    'docker-engine']

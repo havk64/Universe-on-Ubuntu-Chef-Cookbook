@@ -43,9 +43,25 @@ packages = %w(golang
               python-opengl
               libboost-all-dev
               libsdl2-dev
-              swig)
+              swig
+              tilda
+              terminator)
 
 packages.each { |item| package item }
+
+execute 'Customize the Unity Launcher favorite apps' do
+  command 'dbus-launch gsettings set com.canonical.Unity.Launcher favorites '\
+    "\"['application://tilda.desktop', 'application://terminator.desktop', "\
+    "'application://debian-xterm.desktop', 'application://chromium-browser.desktop', "\
+    "'application://firefox.desktop', 'application://org.gnome.Nautilus.desktop', "\
+    "'application://unity-control-center.desktop', 'unity://running-apps', "\
+    "'unity://expo-icon', 'unity://devices']\""
+end
+
+execute 'Set default terminal emulator' do
+  command 'dbus-launch gsettings set org.gnome.desktop.default-applications.terminal '\
+    "exec '/usr/bin/tilda'"
+end
 
 remote_file "#{Chef::Config[:file_cache_path]}/Anaconda3-4.2.0-Linux-x86_64.sh" do
   owner user

@@ -139,12 +139,14 @@ group 'docker' do
 end
 
 git "#{home}/gym" do
+  user user
   repository 'https://github.com/openai/gym.git'
   revision 'master'
   action :sync
 end
 
 git "#{home}/universe" do
+  user user
   repository 'https://github.com/openai/universe.git'
   revision 'master'
   action :sync

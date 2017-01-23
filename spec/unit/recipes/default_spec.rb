@@ -71,6 +71,14 @@ describe 'universe_ubuntu::default' do
       end
     end
 
+    it 'customize unity launcher favorite apps' do
+      expect(chef_run).to run_execute("dbus-launch gsettings set com.canonical.Unity.Launcher favorites \"['application://tilda.desktop', 'application://terminator.desktop', 'application://debian-xterm.desktop', 'application://chromium-browser.desktop', 'application://firefox.desktop', 'application://org.gnome.Nautilus.desktop', 'application://unity-control-center.desktop', 'unity://running-apps', 'unity://expo-icon', 'unity://devices']\"")
+    end
+
+    it 'set the default terminal emulator' do
+      expect(chef_run).to run_execute("dbus-launch gsettings set org.gnome.desktop.default-applications.terminal exec '/usr/bin/tilda'")
+    end
+
     it 'creates remote_file anaconda if missing' do
       user = 'vagrant'
       expect(chef_run).to create_remote_file_if_missing(

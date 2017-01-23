@@ -9,7 +9,7 @@ include_recipe 'apt::default'
 user = node['universe']['user']['name']
 home = node['universe']['user']['home']
 conda_env = node['universe']['conda_env']
-conda_prefix = conda_env[:CONDA_PREFIX]
+conda_prefix = conda_env['CONDA_PREFIX']
 tf_binary = node['universe']['tf_binary']
 
 apt_repository 'newer golang apt repo' do

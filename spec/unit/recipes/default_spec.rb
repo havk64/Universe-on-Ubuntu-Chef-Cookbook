@@ -63,7 +63,9 @@ describe 'universe_ubuntu::default' do
               python-opengl
               libboost-all-dev
               libsdl2-dev
-              swig)
+              swig
+              tilda
+              terminator)
 
     pkgs.each do |name|
       it "install #{name} package" do

@@ -148,15 +148,15 @@ describe 'universe_ubuntu::default' do
     end
 
     it 'Clone gym repo' do
-      expect(chef_run).to sync_git('/home/vagrant/gym')
+      expect(chef_run).to sync_git('/home/vagrant/gym').with(user: 'vagrant')
     end
 
     it 'Clone universe repo' do
-      expect(chef_run).to sync_git('/home/vagrant/universe')
+      expect(chef_run).to sync_git('/home/vagrant/universe').with(user: 'vagrant')
     end
 
     it 'Clone starter agent repo' do
-      expect(chef_run).to sync_git('/home/vagrant/universe-starter-agent')
+      expect(chef_run).to sync_git('/home/vagrant/universe-starter-agent').with(user: 'vagrant')
     end
 
     it 'Install Gym modules' do

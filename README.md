@@ -5,3 +5,4 @@ The Universe on Ubuntu cookbook creates a virtual machine with Ubuntu 16.04LTS o
 More info about Universe: https://openai.com/blog/universe/
 
 (In Development)
+- Author:: Alexandro de Oliveira ([alexandro.oliveira@holbertonschool.com](mailto:alexandro.oliveira@holbertonschool.com))

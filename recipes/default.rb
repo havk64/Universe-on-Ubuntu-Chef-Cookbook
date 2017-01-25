@@ -70,6 +70,7 @@ remote_file "#{Chef::Config[:file_cache_path]}/Anaconda3-4.2.0-Linux-x86_64.sh" 
   source 'https://repo.continuum.io/archive/Anaconda3-4.2.0-Linux-x86_64.sh'
   checksum '73b51715a12b6382dd4df3dd1905b531bd6792d4aa7273b2377a0436d45f0e78'
   action :create_if_missing
+  not_if "[ -x #{home}/anaconda3/bin/conda ]"
 end
 
 execute 'install_anaconda' do

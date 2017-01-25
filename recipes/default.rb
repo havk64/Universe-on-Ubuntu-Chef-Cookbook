@@ -52,8 +52,9 @@ packages.each { |item| package item }
 execute 'Customize the Unity Launcher favorite apps' do
   command 'dbus-launch gsettings set com.canonical.Unity.Launcher favorites '\
     "\"['application://tilda.desktop', 'application://terminator.desktop', "\
-    "'application://debian-xterm.desktop', 'application://chromium-browser.desktop', "\
-    "'application://firefox.desktop', 'application://org.gnome.Nautilus.desktop', "\
+    "'application://debian-xterm.desktop', 'application://remmina.desktop', "\
+    "'application://chromium-browser.desktop', 'application://firefox.desktop', "\
+    "'application://org.gnome.Nautilus.desktop', 'application://org.gnome.Software.desktop', "\
     "'application://unity-control-center.desktop', 'unity://running-apps', "\
     "'unity://expo-icon', 'unity://devices']\""
 end

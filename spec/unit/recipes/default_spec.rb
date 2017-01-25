@@ -98,15 +98,19 @@ describe 'universe_ubuntu::default' do
         .with(user: 'vagrant')
     end
 
+    it 'creates openai directory' do
+      expect(chef_run).to create_directory('/home/vagrant/openai')
+    end
+
     it 'creates conda env file' do
-      expect(chef_run).to create_template('/home/vagrant/environment.yml')
+      expect(chef_run).to create_template('/home/vagrant/openai/environment.yml')
         .with(owner: 'vagrant',
               group: 'vagrant')
     end
 
     it 'creates conda environment' do
       expect(chef_run).to run_execute('/home/vagrant/anaconda3/bin/conda env create -f environment.yml')
-        .with(user: 'vagrant', cwd: '/home/vagrant')
+        .with(user: 'vagrant', cwd: '/home/vagrant/openai')
     end
 
     it 'add lines to shell config files' do
@@ -148,15 +152,15 @@ describe 'universe_ubuntu::default' do
     end
 
     it 'Clone gym repo' do
-      expect(chef_run).to sync_git('/home/vagrant/gym').with(user: 'vagrant')
+      expect(chef_run).to sync_git('/home/vagrant/openai/gym').with(user: 'vagrant')
     end
 
     it 'Clone universe repo' do
-      expect(chef_run).to sync_git('/home/vagrant/universe').with(user: 'vagrant')
+      expect(chef_run).to sync_git('/home/vagrant/openai/universe').with(user: 'vagrant')
     end
 
     it 'Clone starter agent repo' do
-      expect(chef_run).to sync_git('/home/vagrant/universe-starter-agent').with(user: 'vagrant')
+      expect(chef_run).to sync_git('/home/vagrant/openai/universe-starter-agent').with(user: 'vagrant')
     end
 
     it 'Install Gym modules' do
@@ -164,7 +168,7 @@ describe 'universe_ubuntu::default' do
       expect(chef_run).to run_execute("#{conda_prefix}/bin/pip install -e '.[all]'")
         .with(
           user: 'vagrant',
-          cwd: '/home/vagrant/gym',
+          cwd: '/home/vagrant/openai/gym',
           environment: {
             'CONDA_DEFAULT_ENV' => 'universe',
             'CONDA_PREFIX' => conda_prefix,
@@ -177,7 +181,7 @@ describe 'universe_ubuntu::default' do
       expect(chef_run).to run_execute("#{conda_prefix}/bin/pip install -e .")
         .with(
           user: 'vagrant',
-          cwd: '/home/vagrant/universe',
+          cwd: '/home/vagrant/openai/universe',
           environment: {
             'CONDA_DEFAULT_ENV' => 'universe',
             'CONDA_PREFIX' => conda_prefix,

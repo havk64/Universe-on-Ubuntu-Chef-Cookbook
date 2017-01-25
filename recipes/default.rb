@@ -78,7 +78,13 @@ execute 'install_anaconda' do
   not_if "[ -x #{home}/anaconda3/bin/conda ]"
 end
 
-template "#{home}/environment.yml" do
+directory "#{home}/openai" do
+  owner user
+  group user
+  mode '0755'
+end
+
+template "#{home}/openai/environment.yml" do
   owner user
   group user
   source 'environment.erb'
@@ -86,7 +92,7 @@ end
 
 execute 'Create a conda environment' do
   user user
-  cwd home
+  cwd "#{home}/openai"
   command "#{home}/anaconda3/bin/conda env create -f environment.yml"
   not_if "[ -e #{conda_prefix} ]"
 end
@@ -138,21 +144,21 @@ group 'docker' do
   notifies :restart, 'service[lightdm]', :immediately
 end
 
-git "#{home}/gym" do
+git "#{home}/openai/gym" do
   user user
   repository 'https://github.com/openai/gym.git'
   revision 'master'
   action :sync
 end
 
-git "#{home}/universe" do
+git "#{home}/openai/universe" do
   user user
   repository 'https://github.com/openai/universe.git'
   revision 'master'
   action :sync
 end
 
-git "#{home}/universe-starter-agent" do
+git "#{home}/openai/universe-starter-agent" do
   user user
   repository 'https://github.com/openai/universe-starter-agent.git'
   revision 'master'
@@ -162,13 +168,13 @@ end
 execute 'Install gym modules' do
   user user
   environment conda_env
-  cwd "#{home}/gym"
+  cwd "#{home}/openai/gym"
   command "#{conda_prefix}/bin/pip install -e '.[all]'"
 end
 
 execute 'Install Universe modules' do
   user user
   environment conda_env
-  cwd "#{home}/universe"
+  cwd "#{home}/openai/universe"
   command "#{conda_prefix}/bin/pip install -e ."
 end

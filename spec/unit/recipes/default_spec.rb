@@ -74,11 +74,20 @@ describe 'universe_ubuntu::default' do
     end
 
     it 'customize unity launcher favorite apps' do
-      expect(chef_run).to run_execute("dbus-launch gsettings set com.canonical.Unity.Launcher favorites \"['application://tilda.desktop', 'application://terminator.desktop', 'application://debian-xterm.desktop', 'application://remmina.desktop', 'application://chromium-browser.desktop', 'application://firefox.desktop', 'application://org.gnome.Nautilus.desktop', 'application://org.gnome.Software.desktop', 'application://unity-control-center.desktop', 'unity://running-apps', 'unity://expo-icon', 'unity://devices']\"")
+      expect(chef_run).to run_execute(
+        "dbus-launch gsettings set com.canonical.Unity.Launcher favorites "\
+        "\"['application://tilda.desktop', 'application://terminator.desktop', "\
+        "'application://debian-xterm.desktop', 'application://remmina.desktop', "\
+        "'application://chromium-browser.desktop', 'application://firefox.desktop', "\
+        "'application://org.gnome.Nautilus.desktop', 'application://org.gnome.Software.desktop', "\
+        "'application://unity-control-center.desktop', 'unity://running-apps', 'unity://expo-icon', "\
+        "'unity://devices']\"")
     end
 
     it 'set the default terminal emulator' do
-      expect(chef_run).to run_execute("dbus-launch gsettings set org.gnome.desktop.default-applications.terminal exec '/usr/bin/tilda'")
+      expect(chef_run).to run_execute(
+        "dbus-launch gsettings set org.gnome.desktop.default-applications.terminal "\
+        "exec '/usr/bin/tilda'")
     end
 
     it 'creates remote_file anaconda if missing' do
@@ -94,7 +103,8 @@ describe 'universe_ubuntu::default' do
     end
 
     it 'installs anaconda' do
-      expect(chef_run).to run_execute("bash #{Chef::Config[:file_cache_path]}/Anaconda3-4.2.0-Linux-x86_64.sh -b")
+      expect(chef_run).to run_execute(
+        "bash #{Chef::Config[:file_cache_path]}/Anaconda3-4.2.0-Linux-x86_64.sh -b")
         .with(user: 'vagrant')
     end
 
@@ -119,7 +129,9 @@ describe 'universe_ubuntu::default' do
 
     it 'Installs Tensorflow' do
       conda_prefix = '/home/vagrant/anaconda3/envs/universe'
-      expect(chef_run).to run_execute("#{conda_prefix}/bin/pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.11.0-cp35-cp35m-linux_x86_64.whl")
+      expect(chef_run).to run_execute(
+        "#{conda_prefix}/bin/pip install --ignore-installed --upgrade "\
+        "https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.11.0-cp35-cp35m-linux_x86_64.whl")
         .with(
           user: 'vagrant',
           environment: {

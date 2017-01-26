@@ -1,4 +1,4 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
 gem 'test-kitchen', '~> 1.15'
 gem 'kitchen-vagrant', '~> 1.0'

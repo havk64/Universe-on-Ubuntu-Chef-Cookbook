@@ -75,7 +75,7 @@ describe 'universe_ubuntu::default' do
 
     it 'customize unity launcher favorite apps' do
       expect(chef_run).to run_execute(
-        "dbus-launch gsettings set com.canonical.Unity.Launcher favorites "\
+        'dbus-launch gsettings set com.canonical.Unity.Launcher favorites '\
         "\"['application://tilda.desktop', 'application://terminator.desktop', "\
         "'application://debian-xterm.desktop', 'application://remmina.desktop', "\
         "'application://chromium-browser.desktop', 'application://firefox.desktop', "\
@@ -86,7 +86,7 @@ describe 'universe_ubuntu::default' do
 
     it 'set the default terminal emulator' do
       expect(chef_run).to run_execute(
-        "dbus-launch gsettings set org.gnome.desktop.default-applications.terminal "\
+        'dbus-launch gsettings set org.gnome.desktop.default-applications.terminal '\
         "exec '/usr/bin/tilda'")
     end
 
@@ -131,7 +131,7 @@ describe 'universe_ubuntu::default' do
       conda_prefix = '/home/vagrant/anaconda3/envs/universe'
       expect(chef_run).to run_execute(
         "#{conda_prefix}/bin/pip install --ignore-installed --upgrade "\
-        "https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.11.0-cp35-cp35m-linux_x86_64.whl")
+        'https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.11.0-cp35-cp35m-linux_x86_64.whl')
         .with(
           user: 'vagrant',
           environment: {

@@ -152,6 +152,10 @@ describe 'universe_ubuntu::default' do
           )
     end
 
+    it 'Add Cuda env variables' do
+      expect(chef_run).to run_ruby_block('Add Cuda env variables')
+    end
+
     docker_pkgs = ['linux-image-extra-specific_kernel_version',
                    'linux-image-extra-virtual',
                    'docker-engine']

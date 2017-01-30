@@ -23,5 +23,20 @@ The following packages are automatically installed:
 - Golang
 
 
+## Requirements
+
+### Platforms
+- Ubuntu 14.04
+- Ubuntu 16.04
+
+### Cookbooks
+The following cookbooks are direct dependencies:
+- apt '5.0'
+- compat_resource
+
+### Chef
+
+- Chef 12.1+
+
 ## Authors
 - Author:: Alexandro de Oliveira ([alexandro.oliveira@holbertonschool.com](mailto:alexandro.oliveira@holbertonschool.com))

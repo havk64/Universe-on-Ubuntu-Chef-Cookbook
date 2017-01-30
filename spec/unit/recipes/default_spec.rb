@@ -25,6 +25,8 @@ describe 'universe_ubuntu::default' do
       end.converge(described_recipe)
     end
 
+    let(:dpkg) { chef_run.dpkg_package('cuda-repo-ubuntu1404_8.0.44-1_amd64.deb') }
+
     let(:add_user) { chef_run.group('docker') }
 
     it 'converges successfully' do
@@ -148,6 +150,11 @@ describe 'universe_ubuntu::default' do
           source: 'http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-repo-ubuntu1404_8.0.44-1_amd64.deb',
           checksum: '83c1be62a56c1ac245379f8ffb00168d8aee8ca7168ee0f17fa08ce03bc3881d'
         )
+    end
+
+    it 'Add Cuda repo and update pkg list' do
+      expect(chef_run).to install_dpkg_package('cuda-repo-ubuntu1404_8.0.44-1_amd64.deb')
+      expect(dpkg).to notify('execute[apt-get update]').immediately
     end
 
     it 'Add Cuda env variables' do

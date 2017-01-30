@@ -157,6 +157,10 @@ describe 'universe_ubuntu::default' do
       expect(dpkg).to notify('execute[apt-get update]').immediately
     end
 
+    it 'Install Cuda toolkit' do
+      expect(chef_run).to install_package('cuda')
+    end
+
     it 'Add Cuda env variables' do
       expect(chef_run).to run_ruby_block('Add Cuda env variables')
     end

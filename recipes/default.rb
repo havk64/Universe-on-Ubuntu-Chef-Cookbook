@@ -118,7 +118,7 @@ execute 'Install Tensorflow' do
 end
 
 remote_file "#{Chef::Config[:file_cache_path]}/#{node['universe']['cuda']['debfile']}" do
-  source node['universe']['cuda']['cuda_source']
+  source node['universe']['cuda']['source']
   checksum node['universe']['cuda']['checksum']
 end
 

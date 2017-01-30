@@ -142,13 +142,11 @@ describe 'universe_ubuntu::default' do
     end
 
     it 'Create Cuda deb install file' do
-      expect(chef_run).to create_remote_file_if_missing(
-        "#{Chef::Config[:file_cache_path]}/cuda-repo-ubuntu1604_8.0.44-1_amd64.deb")
+      expect(chef_run).to create_remote_file(
+        "#{Chef::Config[:file_cache_path]}/cuda-repo-ubuntu1404_8.0.44-1_amd64.deb")
         .with(
-          owner: 'vagrant',
-          group: 'vagrant',
-          mode: '0755',
-          checksum: '16b0946a3c99ca692c817fb7df57520c'
+          source: 'http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-repo-ubuntu1404_8.0.44-1_amd64.deb',
+          checksum: '83c1be62a56c1ac245379f8ffb00168d8aee8ca7168ee0f17fa08ce03bc3881d'
         )
     end
 

@@ -117,6 +117,11 @@ execute 'Install Tensorflow' do
   not_if "[ -x #{conda_prefix}/bin/tensorboard ]"
 end
 
+remote_file "#{Chef::Config[:file_cache_path]}/#{node['universe']['cuda']['debfile']}" do
+  source node['universe']['cuda']['cuda_source']
+  checksum node['universe']['cuda']['checksum']
+end
+
 apt_repository 'docker' do
   uri 'https://apt.dockerproject.org/repo'
   distribution "#{node['platform']}-#{node['lsb']['codename']}"

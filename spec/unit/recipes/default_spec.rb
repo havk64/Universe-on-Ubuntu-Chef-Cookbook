@@ -144,12 +144,12 @@ describe 'universe_ubuntu::default' do
     it 'Create Cuda deb install file' do
       expect(chef_run).to create_remote_file_if_missing(
         "#{Chef::Config[:file_cache_path]}/cuda-repo-ubuntu1604_8.0.44-1_amd64.deb")
-          .with(
-            owner: 'vagrant',
-            group: 'vagrant',
-            mode: '0755',
-            checksum: '16b0946a3c99ca692c817fb7df57520c'
-          )
+        .with(
+          owner: 'vagrant',
+          group: 'vagrant',
+          mode: '0755',
+          checksum: '16b0946a3c99ca692c817fb7df57520c'
+        )
     end
 
     it 'Add Cuda env variables' do

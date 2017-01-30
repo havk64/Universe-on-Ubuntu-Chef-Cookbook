@@ -122,6 +122,11 @@ remote_file "#{Chef::Config[:file_cache_path]}/#{node['universe']['cuda']['debfi
   checksum node['universe']['cuda']['checksum']
 end
 
+dpkg_package "#{node['universe']['cuda']['debfile']}" do
+  source "#{Chef::Config[:file_cache_path]}/#{node['universe']['cuda']['debfile']}"
+  notifies :run, 'execute[apt-get update]', :immediately
+end
+
 apt_repository 'docker' do
   uri 'https://apt.dockerproject.org/repo'
   distribution "#{node['platform']}-#{node['lsb']['codename']}"

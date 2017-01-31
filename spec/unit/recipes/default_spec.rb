@@ -141,6 +141,10 @@ describe 'universe_ubuntu::default' do
           })
     end
 
+    it 'include Cuda recipe' do
+      expect(chef_run).to include_recipe('universe_ubuntu::cuda')
+    end
+
     docker_pkgs = ['linux-image-extra-specific_kernel_version',
                    'linux-image-extra-virtual',
                    'docker-engine']

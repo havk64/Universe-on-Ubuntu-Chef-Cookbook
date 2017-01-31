@@ -22,6 +22,10 @@ describe 'universe_ubuntu::cuda' do
       expect { chef_run }.to_not raise_error
     end
 
+    it 'include apt recipe' do
+      expect(chef_run).to include_recipe('apt::default')
+    end
+
     it 'Create Cuda deb install file' do
       expect(chef_run).to create_remote_file(
         "#{Chef::Config[:file_cache_path]}/cuda-repo-ubuntu1404_8.0.44-1_amd64.deb")

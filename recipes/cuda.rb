@@ -3,6 +3,7 @@
 # Recipe:: cuda
 #
 # Copyright (c) 2017 The Authors, All Rights Reserved.
+include_recipe 'apt::default'
 
 remote_file "#{Chef::Config[:file_cache_path]}/#{node['universe']['cuda']['debfile']}" do
   source node['universe']['cuda']['source']

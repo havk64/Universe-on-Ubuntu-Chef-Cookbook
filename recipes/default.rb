@@ -127,6 +127,18 @@ dpkg_package "#{node['universe']['cuda']['debfile']}" do
   notifies :run, 'execute[apt-get update]', :immediately
 end
 
+package 'cuda'
+
+ruby_block 'Add Cuda env variables' do
+  block do
+    file = Chef::Util::FileEdit.new "#{home}/.bashrc"
+    file.insert_line_if_no_match(/^export LD_LIBRARY_PATH/,
+    'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64"')
+    file.insert_line_if_no_match(/^export CUDA_HOME/, 'export CUDA_HOME=/usr/local/cuda')
+    file.write_file
+  end
+end
+
 apt_repository 'docker' do
   uri 'https://apt.dockerproject.org/repo'
   distribution "#{node['platform']}-#{node['lsb']['codename']}"

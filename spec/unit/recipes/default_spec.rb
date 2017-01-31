@@ -22,13 +22,8 @@ describe 'universe_ubuntu::default' do
         node.override['universe']['conda_env']['PATH'] = "/home/vagrant/anaconda3/envs/universe/bin:#{ENV['PATH']}"
         node.override['universe']['gpu'] = true
         node.automatic['os_version'] = 'specific_kernel_version'
-        node.override['universe']['cuda']['debfile'] = "cuda-repo-ubuntu1404_8.0.44-1_amd64.deb"
-        node.override['universe']['cuda']['source'] = "http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-repo-ubuntu1404_8.0.44-1_amd64.deb"
-        node.override['universe']['cuda']['checksum'] = '83c1be62a56c1ac245379f8ffb00168d8aee8ca7168ee0f17fa08ce03bc3881d'
       end.converge(described_recipe)
     end
-
-    let(:dpkg) { chef_run.dpkg_package('cuda-repo-ubuntu1404_8.0.44-1_amd64.deb') }
 
     let(:add_user) { chef_run.group('docker') }
 
@@ -144,28 +139,6 @@ describe 'universe_ubuntu::default' do
             'CONDA_PREFIX' => conda_prefix,
             'PATH' => "#{conda_prefix}/bin:#{ENV['PATH']}"
           })
-    end
-
-    it 'Create Cuda deb install file' do
-      expect(chef_run).to create_remote_file(
-        "#{Chef::Config[:file_cache_path]}/cuda-repo-ubuntu1404_8.0.44-1_amd64.deb")
-        .with(
-          source: 'http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-repo-ubuntu1404_8.0.44-1_amd64.deb',
-          checksum: '83c1be62a56c1ac245379f8ffb00168d8aee8ca7168ee0f17fa08ce03bc3881d'
-        )
-    end
-
-    it 'Add Cuda repo and update pkg list' do
-      expect(chef_run).to install_dpkg_package('cuda-repo-ubuntu1404_8.0.44-1_amd64.deb')
-      expect(dpkg).to notify('execute[apt-get update]').immediately
-    end
-
-    it 'Install Cuda toolkit' do
-      expect(chef_run).to install_package('cuda')
-    end
-
-    it 'Add Cuda env variables' do
-      expect(chef_run).to run_ruby_block('Add Cuda env variables')
     end
 
     docker_pkgs = ['linux-image-extra-specific_kernel_version',

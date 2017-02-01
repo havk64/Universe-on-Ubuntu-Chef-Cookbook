@@ -4,10 +4,10 @@
 #
 # Copyright (c) 2016 The Authors, All Rights Reserved.
 
-include_recipe 'apt::default'
 include_recipe 'universe_ubuntu::essentials'
 include_recipe 'universe_ubuntu::tensorflow'
 include_recipe 'universe_ubuntu::cuda' if node['universe']['gpu']
+include_recipe 'universe_ubuntu::docker'
 
 user = node['universe']['user']['name']
 home = node['universe']['user']['home']
@@ -27,35 +27,6 @@ end
 execute 'Set default terminal emulator' do
   command 'dbus-launch gsettings set org.gnome.desktop.default-applications.terminal '\
     "exec '/usr/bin/tilda'"
-end
-
-apt_repository 'docker' do
-  uri 'https://apt.dockerproject.org/repo'
-  distribution "#{node['platform']}-#{node['lsb']['codename']}"
-  components ['main']
-  key 'https://apt.dockerproject.org/gpg'
-end
-
-docker_pkgs = ["linux-image-extra-#{node['os_version']}",
-               'linux-image-extra-virtual',
-               'docker-engine']
-
-docker_pkgs.each { |item| package item }
-
-service 'docker' do
-  action :nothing
-end
-
-service 'lightdm' do
-  action :nothing
-end
-
-group 'docker' do
-  action :modify
-  append true
-  members user
-  notifies :restart, 'service[docker]', :immediately
-  notifies :restart, 'service[lightdm]', :immediately
 end
 
 git "#{home}/openai/gym" do

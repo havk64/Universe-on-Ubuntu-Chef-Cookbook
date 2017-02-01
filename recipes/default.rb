@@ -5,49 +5,13 @@
 # Copyright (c) 2016 The Authors, All Rights Reserved.
 
 include_recipe 'apt::default'
+include_recipe 'universe_ubuntu::essentials'
 
 user = node['universe']['user']['name']
 home = node['universe']['user']['home']
 conda_env = node['universe']['conda_env']
 conda_prefix = conda_env['CONDA_PREFIX']
 tf_binary = node['universe']['tf_binary']
-
-apt_repository 'newer golang apt repo' do
-  uri 'ppa:ubuntu-lxc/lxd-stable'
-  only_if { node['platform_version'] == '14.04' }
-end
-
-ruby_block 'Allow non root users start the GUI' do
-  block do
-    file = Chef::Util::FileEdit.new '/etc/X11/Xwrapper.config'
-    file.search_file_replace_line(/^allowed_users=console/,
-    'allowed_users=anybody')
-    file.write_file
-  end
-  only_if { node['platform_version'] == '14.04' }
-end
-
-packages = %w(golang
-              libjpeg-turbo8-dev
-              make
-              tmux
-              htop
-              chromium-browser
-              git
-              cmake
-              zlib1g-dev
-              libjpeg-dev
-              xvfb
-              libav-tools
-              xorg-dev
-              python-opengl
-              libboost-all-dev
-              libsdl2-dev
-              swig
-              tilda
-              terminator)
-
-packages.each { |item| package item }
 
 execute 'Customize the Unity Launcher favorite apps' do
   command 'dbus-launch gsettings set com.canonical.Unity.Launcher favorites '\

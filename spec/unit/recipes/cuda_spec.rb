@@ -58,5 +58,10 @@ describe 'universe_ubuntu::cuda' do
           checksum: 'c10719b36f2dd6e9ddc63e3189affaa1a94d7d027e63b71c3f64d449ab0645ce'
         )
     end
+
+    it 'Install CuDNN' do
+      expect(chef_run).to run_execute('/bin/tar xzf cudnn-8.0-linux-x64-v5.1.tgz -C /usr/local')
+        .with(cwd: "#{Chef::Config[:file_cache_path]}")
+    end
   end
 end

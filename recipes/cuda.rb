@@ -33,3 +33,8 @@ remote_file "#{Chef::Config[:file_cache_path]}/#{node['universe']['cudnn']['file
   source node['universe']['cudnn']['source']
   checksum node['universe']['cudnn']['checksum']
 end
+
+execute 'Install CuDNN' do
+  cwd "#{Chef::Config[:file_cache_path]}"
+  command "/bin/tar xzf #{node['universe']['cudnn']['file']} -C /usr/local"
+end

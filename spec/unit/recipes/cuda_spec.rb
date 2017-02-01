@@ -47,5 +47,16 @@ describe 'universe_ubuntu::cuda' do
     it 'Add Cuda env variables' do
       expect(chef_run).to run_ruby_block('Add Cuda env variables')
     end
+
+    it 'Create CuDNN install file' do
+      expect(chef_run).to create_remote_file(
+      "#{Chef::Config[:file_cache_path]}/cudnn-8.0-linux-x64-v5.1.tgz")
+        .with(
+          owner: 'root',
+          group: 'root',
+          source: 'http://developer.download.nvidia.com/compute/redist/cudnn/v5.1/cudnn-8.0-linux-x64-v5.1.tgz',
+          checksum: 'c10719b36f2dd6e9ddc63e3189affaa1a94d7d027e63b71c3f64d449ab0645ce'
+        )
+    end
   end
 end

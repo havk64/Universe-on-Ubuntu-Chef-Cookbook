@@ -117,7 +117,7 @@ execute 'Install Tensorflow' do
   not_if "[ -x #{conda_prefix}/bin/tensorboard ]"
 end
 
-include_recipe 'universe_ubuntu::cuda'
+include_recipe 'universe_ubuntu::cuda' if node['universe']['gpu']
 
 apt_repository 'docker' do
   uri 'https://apt.dockerproject.org/repo'

@@ -26,3 +26,10 @@ ruby_block 'Add Cuda env variables' do
     file.write_file
   end
 end
+
+remote_file "#{Chef::Config[:file_cache_path]}/#{node['universe']['cudnn']['file']}" do
+  owner 'root'
+  group 'root'
+  source node['universe']['cudnn']['source']
+  checksum node['universe']['cudnn']['checksum']
+end

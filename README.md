@@ -21,7 +21,7 @@ The following packages are automatically installed:
 - OpenCV
 - Docker
 - Golang
-
+- Cuda 8.0 + CuDNN 5.1 (if you choose to enable GPU processing)
 
 ## Requirements
 

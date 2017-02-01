@@ -35,42 +35,8 @@ describe 'universe_ubuntu::default' do
       expect(chef_run).to include_recipe('apt::default')
     end
 
-    it 'add new golang repository' do
-      expect(chef_run).to add_apt_repository('newer golang apt repo')
-    end
-
-    it 'edit /etc/X11/Xwrapper.config' do
-      expect(chef_run).to run_ruby_block('Allow non root users start the GUI')
-    end
-
     it 'add docker repository' do
       expect(chef_run).to add_apt_repository('docker')
-    end
-
-    pkgs = %w(golang
-              libjpeg-turbo8-dev
-              make
-              tmux
-              htop
-              chromium-browser
-              git
-              cmake
-              zlib1g-dev
-              libjpeg-dev
-              xvfb
-              libav-tools
-              xorg-dev
-              python-opengl
-              libboost-all-dev
-              libsdl2-dev
-              swig
-              tilda
-              terminator)
-
-    pkgs.each do |name|
-      it "install #{name} package" do
-        expect(chef_run).to install_package name
-      end
     end
 
     it 'customize unity launcher favorite apps' do

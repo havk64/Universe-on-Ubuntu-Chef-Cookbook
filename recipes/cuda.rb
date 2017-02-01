@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: Universe-on-Ubuntu-Chef-Recipe
+# Cookbook Name:: universe_ubuntu
 # Recipe:: cuda
 #
 # Copyright (c) 2017 The Authors, All Rights Reserved.

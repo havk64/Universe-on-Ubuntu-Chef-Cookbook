@@ -1,6 +1,6 @@
 # # encoding: utf-8
 
-# Inspec test for recipe Universe-on-Ubuntu-Chef-Recipe::cuda
+# Inspec test for recipe universe_ubuntu::cuda
 
 # The Inspec reference, with examples and extensive documentation, can be
 # found at https://docs.chef.io/inspec_reference.html

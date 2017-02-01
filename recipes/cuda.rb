@@ -38,3 +38,7 @@ execute 'Install CuDNN' do
   cwd "#{Chef::Config[:file_cache_path]}"
   command "/bin/tar xzf #{node['universe']['cudnn']['file']} -C /usr/local"
 end
+
+execute 'Map shared library' do
+  command '/sbin/ldconfig'
+end

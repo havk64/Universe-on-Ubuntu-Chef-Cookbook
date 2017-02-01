@@ -21,18 +21,11 @@ describe 'universe_ubuntu::default' do
         node.override['universe']['conda_env']['CONDA_PREFIX'] = '/home/vagrant/anaconda3/envs/universe'
         node.override['universe']['conda_env']['PATH'] = "/home/vagrant/anaconda3/envs/universe/bin:#{ENV['PATH']}"
         node.override['universe']['gpu'] = true
-        node.automatic['os_version'] = 'specific_kernel_version'
       end.converge(described_recipe)
     end
 
-    let(:add_user) { chef_run.group('docker') }
-
     it 'converges successfully' do
       expect { chef_run }.to_not raise_error
-    end
-
-    it 'Include apt recipe' do
-      expect(chef_run).to include_recipe('apt::default')
     end
 
     it 'Include essentials recipe' do
@@ -47,8 +40,8 @@ describe 'universe_ubuntu::default' do
       expect(chef_run).to include_recipe('universe_ubuntu::cuda')
     end
 
-    it 'add docker repository' do
-      expect(chef_run).to add_apt_repository('docker')
+    it 'Include docker recipe' do
+      expect(chef_run).to include_recipe('universe_ubuntu::docker')
     end
 
     it 'customize unity launcher favorite apps' do
@@ -66,28 +59,6 @@ describe 'universe_ubuntu::default' do
       expect(chef_run).to run_execute(
         'dbus-launch gsettings set org.gnome.desktop.default-applications.terminal '\
         "exec '/usr/bin/tilda'")
-    end
-
-    docker_pkgs = ['linux-image-extra-specific_kernel_version',
-                   'linux-image-extra-virtual',
-                   'docker-engine']
-
-    docker_pkgs.each do |name|
-      it "Installs #{name} package" do
-        expect(chef_run).to install_package(name)
-      end
-    end
-
-    it 'Add current user to docker group' do
-      expect(chef_run).to modify_group('docker')
-    end
-
-    it 'Notifies service docker restart' do
-      expect(add_user).to notify('service[docker]').to(:restart).immediately
-    end
-
-    it 'Notifies service lightdm' do
-      expect(add_user).to notify('service[lightdm]').to(:restart).immediately
     end
 
     it 'Clone gym repo' do

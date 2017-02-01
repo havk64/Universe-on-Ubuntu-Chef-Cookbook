@@ -35,6 +35,10 @@ describe 'universe_ubuntu::default' do
       expect(chef_run).to include_recipe('apt::default')
     end
 
+    it 'Include essentials recipe' do
+      expect(chef_run).to include_recipe('universe_ubuntu::essentials')
+    end
+
     it 'add docker repository' do
       expect(chef_run).to add_apt_repository('docker')
     end

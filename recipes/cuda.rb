@@ -10,7 +10,7 @@ remote_file "#{Chef::Config[:file_cache_path]}/#{node['universe']['cuda']['debfi
   checksum node['universe']['cuda']['checksum']
 end
 
-dpkg_package "#{node['universe']['cuda']['debfile']}" do
+dpkg_package node['universe']['cuda']['debfile'] do
   source "#{Chef::Config[:file_cache_path]}/#{node['universe']['cuda']['debfile']}"
   notifies :run, 'execute[apt-get update]', :immediately
 end
@@ -35,7 +35,7 @@ remote_file "#{Chef::Config[:file_cache_path]}/#{node['universe']['cudnn']['file
 end
 
 execute 'Install CuDNN' do
-  cwd "#{Chef::Config[:file_cache_path]}"
+  cwd Chef::Config[:file_cache_path]
   command "/bin/tar xzf #{node['universe']['cudnn']['file']} -C /usr/local"
 end
 

@@ -1,4 +1,4 @@
-default['universe']['gpu'] =  false # Change to 'true' to enable gpu processing
+default['universe']['gpu'] = false # Change to 'true' to enable gpu processing
 default['universe']['user']['name'] = 'vagrant'
 default['universe']['user']['home'] = '/home/vagrant'
 default['universe']['conda_env']['CONDA_DEFAULT_ENV'] = 'universe'

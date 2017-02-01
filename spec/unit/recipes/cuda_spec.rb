@@ -9,11 +9,8 @@ require 'spec_helper'
 describe 'universe_ubuntu::cuda' do
   context 'When all attributes are default, on Ubuntu 14.04' do
     let(:chef_run) do
-      ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '14.04') do |node|
-        node.override['universe']['cuda']['debfile'] = 'cuda-repo-ubuntu1404_8.0.44-1_amd64.deb'
-        node.override['universe']['cuda']['source'] = 'http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-repo-ubuntu1404_8.0.44-1_amd64.deb'
-        node.override['universe']['cuda']['checksum'] = '83c1be62a56c1ac245379f8ffb00168d8aee8ca7168ee0f17fa08ce03bc3881d'
-      end.converge(described_recipe)
+      runner = ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '14.04')
+      runner.converge(described_recipe)
     end
 
     let(:dpkg) { chef_run.dpkg_package('cuda-repo-ubuntu1404_8.0.44-1_amd64.deb') }

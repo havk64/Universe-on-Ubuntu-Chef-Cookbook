@@ -63,5 +63,9 @@ describe 'universe_ubuntu::cuda' do
       expect(chef_run).to run_execute('/bin/tar xzf cudnn-8.0-linux-x64-v5.1.tgz -C /usr/local')
         .with(cwd: "#{Chef::Config[:file_cache_path]}")
     end
+
+    it 'Map shared library' do
+      expect(chef_run).to run_execute('/sbin/ldconfig')
+    end
   end
 end

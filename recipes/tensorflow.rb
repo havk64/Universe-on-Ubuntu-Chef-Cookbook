@@ -42,7 +42,7 @@ execute 'Create a conda environment' do
   user user
   cwd "#{home}/openai"
   command "#{home}/anaconda3/bin/conda env create -f environment.yml"
-  not_if "[ -e #{conda_prefix} ]"
+  not_if "[ -e #{conda_prefix}/bin/wheel ]"
 end
 
 ruby_block 'Add Anaconda and Universe to bashrc' do

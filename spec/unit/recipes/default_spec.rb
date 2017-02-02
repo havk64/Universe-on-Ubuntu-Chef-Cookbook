@@ -44,21 +44,9 @@ describe 'universe_ubuntu::default' do
       expect(chef_run).to include_recipe('universe_ubuntu::openai')
     end
 
-    it 'customize unity launcher favorite apps' do
-      expect(chef_run).to run_execute(
-        'dbus-launch gsettings set com.canonical.Unity.Launcher favorites '\
-        "\"['application://tilda.desktop', 'application://terminator.desktop', "\
-        "'application://debian-xterm.desktop', 'application://remmina.desktop', "\
-        "'application://chromium-browser.desktop', 'application://firefox.desktop', "\
-        "'application://org.gnome.Nautilus.desktop', 'application://org.gnome.Software.desktop', "\
-        "'application://unity-control-center.desktop', 'unity://running-apps', 'unity://expo-icon', "\
-        "'unity://devices']\"")
-    end
-
-    it 'set the default terminal emulator' do
-      expect(chef_run).to run_execute(
-        'dbus-launch gsettings set org.gnome.desktop.default-applications.terminal '\
-        "exec '/usr/bin/tilda'")
+    it 'Create universe_test template' do
+      expect(chef_run).to create_template('/home/vagrant/universe_test.py')
+        .with(owner: 'vagrant', group: 'vagrant', source: 'universe_test.erb')
     end
   end
 end

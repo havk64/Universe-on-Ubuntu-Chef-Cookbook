@@ -10,7 +10,7 @@ describe 'universe_ubuntu::default' do
   context 'When all attributes are default, on an Ubuntu 14.04' do
     before do
       stub_command('[ -x /home/vagrant/anaconda3/bin/conda ]').and_return(false)
-      stub_command('[ -e /home/vagrant/anaconda3/envs/universe ]').and_return(false)
+      stub_command('[ -e /home/vagrant/anaconda3/envs/universe/bin/wheel ]').and_return(false)
       stub_command('[ -x /home/vagrant/anaconda3/envs/universe/bin/tensorboard ]').and_return(false)
     end
 

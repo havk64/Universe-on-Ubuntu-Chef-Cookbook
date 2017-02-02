@@ -49,7 +49,8 @@ describe 'universe_ubuntu::tensorflow' do
     it 'creates conda env file' do
       expect(chef_run).to create_template('/home/vagrant/openai/environment.yml')
         .with(owner: 'vagrant',
-              group: 'vagrant')
+              group: 'vagrant',
+              source: 'environment.erb')
     end
 
     it 'creates conda environment' do

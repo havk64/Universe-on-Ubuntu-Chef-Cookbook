@@ -22,19 +22,19 @@ More info here: [CUDA GPUs](https://developer.nvidia.com/cuda-gpus)*
 
 The following packages are automatically installed:
 
-- Anaconda (python 3.5)
-- Numpy
-- Scipy
-- Gym and its modules
-- Universe and its modules
-- Universe Starter Agent (AC3 Algorithm)
-- Tensorflow 0.11
-- Theano
-- Keras
-- OpenCV
-- Docker
-- Golang
-- Cuda 8.0 + CuDNN 5.1 (if you choose to enable GPU processing)
+- [Anaconda](https://docs.continuum.io/anaconda/) (python 3.5)
+- [Numpy](http://www.numpy.org/)
+- [Scipy](https://www.scipy.org/)
+- [Gym](https://gym.openai.com/) and its modules
+- [Universe](https://universe.openai.com/) and its modules
+- [Universe Starter Agent](https://github.com/openai/universe-starter-agent) (AC3 Algorithm)
+- [Tensorflow](https://www.tensorflow.org/) 0.11
+- [Theano](http://deeplearning.net/software/theano/)
+- [Keras](https://keras.io/)
+- [OpenCV](http://opencv.org/)
+- [Docker](https://www.docker.com/)
+- [Golang](https://golang.org/)
+- [Cuda toolkit](https://developer.nvidia.com/cuda-toolkit) 8.0 + [CuDNN](https://developer.nvidia.com/cudnn) 5.1 (if you choose to enable GPU processing)
 
 ## Requirements
 

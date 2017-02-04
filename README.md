@@ -6,6 +6,17 @@ The Universe on Ubuntu cookbook creates a virtual machine with Ubuntu 16.04LTS o
 
 More info about Universe: https://openai.com/blog/universe/
 
+## Attributes
+
+    default['universe']['gpu'] = false
+
+In order to enable GPU processing you should change this attribute to 'true'.
+By choosing GPU the recipe installs a different version of TensorFlow plus CUDA
+and CuDNN libraries.
+*Be aware: TensorFlow GPU support requires having a GPU card with NVidia
+Compute Capability (>= 3.0).
+More info here: [CUDA GPUs](https://developer.nvidia.com/cuda-gpus)*
+
 ## Environment
 
 The following packages are automatically installed:

@@ -10,10 +10,11 @@ More info about Universe: https://openai.com/blog/universe/
 
     default['universe']['gpu'] = false
 
-In order to enable GPU processing you should change this attribute to 'true'.
-By choosing GPU the recipe installs a different version of TensorFlow plus CUDA
-and CuDNN libraries.
-*Be aware: TensorFlow GPU support requires having a GPU card with NVidia
+The **GPU** attribute is set to `false` by default enabling only **CPU** processing.  
+In order to enable **GPU** processing you should change the **GPU** attribute to `true`.  
+When GPU attribute is enabled the recipe installs a different version of TensorFlow plus CUDA
+and CuDNN libraries.  
+> *TensorFlow GPU support requires having a GPU card with NVidia
 Compute Capability (>= 3.0).
 More info here: [CUDA GPUs](https://developer.nvidia.com/cuda-gpus)*
 

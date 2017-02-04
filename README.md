@@ -27,6 +27,7 @@ The following packages are automatically installed:
 - Scipy
 - Gym and its modules
 - Universe and its modules
+- Universe Starter Agent (AC3 Algorithm)
 - Tensorflow 0.11
 - Theano
 - Keras

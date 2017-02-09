@@ -6,7 +6,7 @@
 
 include_recipe 'apt::default'
 
-apt_repository 'newer golang apt repo' do
+apt_repository 'add golang latest repo' do
   uri 'ppa:ubuntu-lxc/lxd-stable'
   only_if { node['platform_version'] == '14.04' }
 end

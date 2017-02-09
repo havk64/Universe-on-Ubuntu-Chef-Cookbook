@@ -21,8 +21,8 @@ describe 'universe_ubuntu::essentials' do
       expect(chef_run).to include_recipe('apt::default')
     end
 
-    it 'add new golang repository' do
-      expect(chef_run).to add_apt_repository('newer golang apt repo')
+    it 'add golang latest repo' do
+      expect(chef_run).to add_apt_repository('add golang latest repo')
     end
 
     it 'edit /etc/X11/Xwrapper.config' do

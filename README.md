@@ -51,5 +51,25 @@ The following cookbooks are direct dependencies:
 
 - Chef 12.1+
 
+## Recipes
+
+This cookbook is split in 5 recipes in order to allow deployment on different setups and
+make it easy to split the job between several machines in distributed environments:
+
+- Essentials:  
+Installs basic packages
+
+- Tensorflow:  
+Install Anaconda/Python environment and Tensorflow 0.11
+
+- Cuda(Optional for GPU processing):  
+Install Cuda Toolkit and CuDNN
+
+- Docker:  
+Install Docker
+
+- OpenAI:  
+Install Gym, Universe and Universe Starter Agent
+
 ## Authors
 - Author:: Alexandro de Oliveira ([alexandro.oliveira@holbertonschool.com](mailto:alexandro.oliveira@holbertonschool.com))

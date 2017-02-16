@@ -2,7 +2,11 @@
 
 v0.2.0 (In Development)
 
-The Universe on Ubuntu cookbook creates a virtual machine with Ubuntu 16.04LTS or 14.04LTS as operating system and configures all environment needed to make it possible to use [OpenAI Universe](https://universe.openai.com/) as a software platform to measure and train Artificial Intelligence on an extremely wide range of real-time, complex and heterogeneous environments.
+The Universe on Ubuntu cookbook creates a virtual machine with Ubuntu 16.04LTS
+or 14.04LTS as operating system and configures all environment needed to make
+it possible to use [OpenAI Universe](https://universe.openai.com/) as a software
+platform to measure and train Artificial Intelligence on an extremely wide range
+of real-time, complex and heterogeneous environments.
 
 More info about Universe: https://openai.com/blog/universe/
 
@@ -12,8 +16,8 @@ More info about Universe: https://openai.com/blog/universe/
 
 The **GPU** attribute is set to `false` by default enabling only **CPU** processing.  
 In order to enable **GPU** processing you should change the **GPU** attribute to `true`.  
-When GPU attribute is enabled the recipe installs a different version of TensorFlow plus CUDA
-and CuDNN libraries.  
+When GPU attribute is enabled the recipe installs a different version of TensorFlow
+plus CUDA and CuDNN libraries.  
 > *TensorFlow GPU support requires having a GPU card with NVidia
 Compute Capability (>= 3.0).
 More info here: [CUDA GPUs](https://developer.nvidia.com/cuda-gpus)*
@@ -27,14 +31,17 @@ The following packages are automatically installed:
 - [Scipy](https://www.scipy.org/)
 - [Gym](https://gym.openai.com/) and its modules
 - [Universe](https://universe.openai.com/) and its modules
-- [Universe Starter Agent](https://github.com/openai/universe-starter-agent) (AC3 Algorithm)
+- [Universe Starter Agent](https://github.com/openai/universe-starter-agent)
+(AC3 Algorithm)
 - [Tensorflow](https://www.tensorflow.org/) 0.11
 - [Theano](http://deeplearning.net/software/theano/)
 - [Keras](https://keras.io/)
 - [OpenCV](http://opencv.org/)
 - [Docker](https://www.docker.com/)
 - [Golang](https://golang.org/)
-- [Cuda toolkit](https://developer.nvidia.com/cuda-toolkit) 8.0 + [CuDNN](https://developer.nvidia.com/cudnn) 5.1 (if you choose to enable GPU processing)
+- [Cuda toolkit](https://developer.nvidia.com/cuda-toolkit) 8.0 +
+[CuDNN](https://developer.nvidia.com/cudnn) 5.1 (if you choose to enable GPU
+  processing)
 
 ## Requirements
 
@@ -72,4 +79,5 @@ Install Docker
 Install Gym, Universe and Universe Starter Agent
 
 ## Authors
-- Author:: Alexandro de Oliveira ([alexandro.oliveira@holbertonschool.com](mailto:alexandro.oliveira@holbertonschool.com))
+- Author:: Alexandro de Oliveira ([alexandro.oliveira@holbertonschool.com](mailto:
+  alexandro.oliveira@holbertonschool.com))
